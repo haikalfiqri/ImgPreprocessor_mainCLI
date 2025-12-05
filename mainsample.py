@@ -43,7 +43,27 @@ def show_opencv_image(title: str, image) -> None:
 #need a handler function for color conversion
 
 
-#need a handler function for noise reduction
+def denoise_reduction() -> None:
+    path, bgr = load_bgr_image_from_user()
+    if bgr is None:
+        return
+
+    print("\nChoose noise reduction filter:")
+    print("1. Gaussian Blur")
+    print("2. Median Blur")
+    filter_choice = input("Enter your choice (1-2): ").strip()
+
+    if filter_choice == "1":
+        ksize = int(input("Enter kernel size (odd number, e.g. 3,5,7,11): ").strip() or "11")
+        result = preprocessing.denoise_gaussian(bgr, ksize=ksize)
+    elif filter_choice == "2":
+        ksize = int(input("Enter kernel size (odd number, e.g. 3,5,7,11): ").strip() or "11")
+        result = preprocessing.denoise_median(bgr, ksize=ksize)
+    else:
+        print("Invalid filter choice.")
+        return
+
+    show_opencv_image(f"Denoised - {path}", preprocessing.resize_for_display(result))
 
 
 #need a handler function for image resizing
@@ -71,7 +91,7 @@ def main() -> int:
             if choice == "1":
                 # Call the color conversion handler
             elif choice == "2":
-                # Call the noise reduction handler
+                denoise_reduction()
             elif choice == "3":
                 # Call the image resizing handler
         except Exception as e:
