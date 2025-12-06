@@ -99,7 +99,7 @@ def main() -> int:
 
         try:
             if choice == "1":
-                # Call the color conversion handler
+                handle_color_conversion()
             elif choice == "2":
                 # Call the noise reduction handler
             elif choice == "3":
