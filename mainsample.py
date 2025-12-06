@@ -47,6 +47,28 @@ def show_opencv_image(title: str, image) -> None:
 
 
 #need a handler function for image resizing
+def handle_image_resizing() -> None:
+
+    path = input("\nEnter image file path: ").strip()
+    if not path:
+        print("No path given.")
+        return
+
+    try:
+        width = int(input("Enter target width (pixels): ").strip())
+        height = int(input("Enter target height (pixels): ").strip())
+    except ValueError:
+        print("Width and height must be integers.")
+        return
+
+    bgr = cv2.imread(path)
+    if bgr is None:
+        print(f"Could not read image from '{path}'.")
+        return
+
+    resized = preprocessing.resize_opencv(bgr, width=width, height=height)
+    show_opencv_image(f"Resized (OpenCV) - {path}", resized)
+
 
 
 
