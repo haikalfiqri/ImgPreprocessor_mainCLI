@@ -48,6 +48,11 @@ def show_opencv_image(title: str, image) -> None:
 
 #need a handler function for image resizing
 def handle_image_resizing() -> None:
+    """Menu handler for image resizing using OpenCV or Pillow."""
+    print("\nChoose backend:")
+    print("1. OpenCV")
+    print("2. Pillow (PIL)")
+    backend_choice = input("Enter your choice (1-2): ").strip()
 
     path = input("\nEnter image file path: ").strip()
     if not path:
@@ -61,14 +66,26 @@ def handle_image_resizing() -> None:
         print("Width and height must be integers.")
         return
 
-    bgr = cv2.imread(path)
-    if bgr is None:
-        print(f"Could not read image from '{path}'.")
+    if backend_choice == "1":
+        # OpenCV backend.
+        bgr = cv2.imread(path)
+        if bgr is None:
+            print(f"Could not read image from '{path}'.")
+            return
+        resized = preprocessing.resize_opencv(bgr, width=width, height=height)
+        show_opencv_image(f"Resized (OpenCV) - {path}", resized)
+    elif backend_choice == "2":
+        # Pillow backend.
+        try:
+            pil_img = Image.open(path)
+        except Exception as e:
+            print(f"Could not open image with Pillow: {e}")
+            return
+        resized_pil = preprocessing.resize_pillow(pil_img, width=width, height=height)
+        resized_pil.show()  # Pillow’s simple display helper.[web:49]
+    else:
+        print("Invalid backend choice.")
         return
-
-    resized = preprocessing.resize_opencv(bgr, width=width, height=height)
-    show_opencv_image(f"Resized (OpenCV) - {path}", resized)
-
 
 
 
