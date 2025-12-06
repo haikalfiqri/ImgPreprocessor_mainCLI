@@ -41,7 +41,37 @@ def show_opencv_image(title: str, image) -> None:
 
 
 #need a handler function for color conversion
+def handle_color_conversion() -> None:
+    """Menu handler for color space conversion."""
+    path, bgr = load_bgr_image_from_user()
+    if bgr is None:
+        return
 
+    print("\nChoose color space:")
+    print("1. RGB")
+    print("2. GRAY")
+    print("3. HSV")
+    print("4. LAB")
+    mode_choice = input("Enter your choice (1-4): ").strip()
+
+    mode_map = {
+        "1": "rgb",
+        "2": "gray",
+        "3": "hsv",
+        "4": "lab",
+    }
+    mode = mode_map.get(mode_choice)
+    if mode is None:
+        print("Invalid color space choice.")
+        return
+
+    try:
+        converted = preprocessing.convert_color(bgr, mode=mode)
+    except Exception as e:
+        print(f"Error during color conversion: {e}")
+        return
+
+    show_opencv_image(f"{mode.upper()} - {path}", preprocessing.resize_for_display(converted))
 
 #need a handler function for noise reduction
 
