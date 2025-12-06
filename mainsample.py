@@ -4,6 +4,11 @@ Main Image Preprocessing Program
 CLI entry point that imports preprocessing functions from
 imagepreproc_haikalfiqri.preprocessing
 """
+import cv2
+import sys
+from PIL import Image
+from imagepreproc_haikalfiqri import preprocessing
+
 def display_main_menu() -> None:
     """Display the main menu options."""
     print("\n" + "=" * 70)
