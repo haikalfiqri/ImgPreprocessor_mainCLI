@@ -81,7 +81,8 @@ def denoise_reduction() -> None:
     print("\nChoose noise reduction filter:")
     print("1. Gaussian Blur")
     print("2. Median Blur")
-    filter_choice = input("Enter your choice (1-2): ").strip()
+    print("3. Bilateral Filter")
+    filter_choice = input("Enter your choice (1-3): ").strip()
 
     if filter_choice == "1":
         ksize = int(input("Enter kernel size (odd number, e.g. 3,5,7,11): ").strip() or "11")
@@ -89,6 +90,16 @@ def denoise_reduction() -> None:
     elif filter_choice == "2":
         ksize = int(input("Enter kernel size (odd number, e.g. 3,5,7,11): ").strip() or "11")
         result = preprocessing.denoise_median(bgr, ksize=ksize)
+    elif filter_choice == "3":
+        d = int(input("Enter diameter d (e.g. 15): ").strip() or "15")
+        sigma_color = int(input("Enter sigmaColor (e.g. 100): ").strip() or "100")
+        sigma_space = int(input("Enter sigmaSpace (e.g. 100): ").strip() or "100")
+        result = preprocessing.denoise_bilateral(
+            bgr,
+            d=d,
+            sigma_color=sigma_color,
+            sigma_space=sigma_space,
+        )
     else:
         print("Invalid filter choice.")
         return
