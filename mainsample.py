@@ -95,7 +95,7 @@ def main() -> int:
             elif choice == "2":
                 # Call the noise reduction handler
             elif choice == "3":
-                # Call the image resizing handler
+                 handle_image_resizing()
         except Exception as e:
             print(f"\nUnexpected error: {e}")
             print("Returning to main menu...")
