@@ -157,7 +157,15 @@ def handle_image_resizing() -> None:
 
 def main() -> int:
     """Main program - lets user choose which preprocessing module to run."""
-    
+    print("\n" + "=" * 70)
+    print("   WELCOME TO IMAGE PREPROCESSING TOOLKIT")
+    print("=" * 70)
+    print("\nThis tool provides three preprocessing modules:")
+    print("• Color Space Conversion - Transform color representations")
+    print("• Noise Reduction - Remove unwanted noise from images")
+    print("• Image Resizing - Change image dimensions")
+    print("\nEach module uses functions from the imagepreproc_haikalfiqri library.")
+
     while True:
         display_main_menu()
         choice = input("\nEnter your choice (1-4): ").strip()
